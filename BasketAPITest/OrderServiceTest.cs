@@ -22,13 +22,14 @@ namespace BasketAPITest
             bool isAdded = basketService.AddBasketItem("C123", basketModel.Id, basketItemModel);
 
             CustomerModel customerModel = new CustomerModel();
-            customerModel.Id = "ABC";
+            customerModel.Id = "";
             customerModel.ContactNumber = "0777777777";
             customerModel.DeliveryAddress = "5th Street Somewhere";
             customerModel.Name = "John Doe";
 
-            var obj = orderService.ProduceOrder(basketModel, customerModel, (float)120.00, 0);
+            var obj = orderService.ProduceOrder(basketModel, customerModel, 0, 0);
 
+            //Check the API does not produce an order if mandatory fields are missing for customer.
             Assert.Null(obj);
 
         }

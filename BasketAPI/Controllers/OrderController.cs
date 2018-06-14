@@ -22,6 +22,19 @@ namespace BasketAPI.Controllers
             _basketService = basketService;
         }
 
+
+        /// <summary>
+        /// This method retireves the order for a customer
+        /// </summary>
+        /// <param name="clientId">Client ID</param>
+        /// <param name="basketId">Basket ID</param>
+        /// <param name="customerId">Customer ID</param>
+        /// <param name="customerName">Customer Name</param>
+        /// <param name="deliveryAddress">Delivery Address</param>
+        /// <param name="contactNumber">Customer Number</param>
+        /// <param name="tax">Tax rate</param>
+        /// <param name="deliveryPrice">Delivery price</param>
+        /// <returns>Order Model</returns>
         [Route("ProduceOrder")]
         [HttpGet]
         public IActionResult ProduceOrder(string clientId, string basketId, string customerId, string customerName, string deliveryAddress, 

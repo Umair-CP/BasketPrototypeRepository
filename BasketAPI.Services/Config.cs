@@ -33,6 +33,8 @@ namespace BasketAPI.Services
             };
         }
 
+        //The basket data is maintained in memory. Therefore, if the project stops running
+        //the data will be erased.
         public static List<BasketModel> BasketData = new List<BasketModel>();
         public static void SaveBasketData(BasketModel basket)
         {

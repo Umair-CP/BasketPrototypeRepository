@@ -7,11 +7,20 @@ using System.Text;
 
 namespace BasketClientLibrary
 {
+
+    /// <summary>
+    /// This library will be used by clients in their applications to ineract with the basket web API
+    /// </summary>
     public class BasketClient
     {
         public string ClientId { get; set; }
         public string BasketId { get; set; }
 
+
+        /// <summary>
+        /// The constructor creates a new basket and returns the ID of the basket
+        /// </summary>
+        /// <param name="clientId">Client ID</param>
         public BasketClient(string clientId)
         {
             ClientId = clientId;
@@ -25,6 +34,19 @@ namespace BasketClientLibrary
             BasketId = JsonConvert.DeserializeObject<string>(content.Result);
         }
 
+
+        /// <summary>
+        /// This method adds a new item in to the basket
+        /// </summary>
+        /// <param name="itemId">Item ID</param>
+        /// <param name="name">Item name</param>
+        /// <param name="description">Description</param>
+        /// <param name="specification">Specification</param>
+        /// <param name="comment">User comments</param>
+        /// <param name="unitPrice">Unit price of item</param>
+        /// <param name="quantity">Quanity of item</param>
+        /// <param name="discount">Discount rate</param>
+        /// <returns>True/false based on if item was added</returns>
         public bool AddItem(string itemId, string name, string description, string specification,
                             string comment, float unitPrice, int quantity, float discount)
         {
@@ -46,6 +68,12 @@ namespace BasketClientLibrary
             return isAdded;
         }
 
+
+        /// <summary>
+        /// Remove item from basket
+        /// </summary>
+        /// <param name="itemId">ID of item to be removed</param>
+        /// <returns>True/false based on if item was removed</returns>
         public bool RemoveItem(string itemId)
         {
             bool isRemoved = false;
@@ -62,6 +90,13 @@ namespace BasketClientLibrary
             return isRemoved;
         }
 
+
+        /// <summary>
+        /// Update item quantity in basket
+        /// </summary>
+        /// <param name="itemId">Item ID</param>
+        /// <param name="quantity">Quantity</param>
+        /// <returns>True/false based on if item quantity was updated</returns>
         public bool UpdateItem(string itemId, int quantity)
         {
             bool isUpdated = false;
@@ -79,6 +114,11 @@ namespace BasketClientLibrary
             return isUpdated;
         }
 
+
+        /// <summary>
+        /// Clear all basket items
+        /// </summary>
+        /// <returns>True/false based on if basket was cleared</returns>
         public bool ClearBasket()
         {
             bool isCleared = false;
@@ -95,6 +135,11 @@ namespace BasketClientLibrary
             return isCleared;
         }
 
+
+        /// <summary>
+        /// Delete basket
+        /// </summary>
+        /// <returns>True/false based on if basket was deleted</returns>
         public bool DeleteBasket()
         {
             bool isDeleted = false;
@@ -111,6 +156,11 @@ namespace BasketClientLibrary
             return isDeleted;
         }
 
+
+        /// <summary>
+        /// Get basket
+        /// </summary>
+        /// <returns>Basket model in JSON format</returns>
         public string GetBasket()
         {
             UriBuilder builder = new UriBuilder("http://localhost:50000/api/basket/GetBasket");
@@ -125,11 +175,23 @@ namespace BasketClientLibrary
             return basketObject;
         }
 
+
+        /// <summary>
+        /// Produce order
+        /// </summary>
+        /// <param name="customerId">Customer ID</param>
+        /// <param name="customerName">Customer Name</param>
+        /// <param name="deliveryAddress">Delivery Address</param>
+        /// <param name="contactNumber">Contact Number</param>
+        /// <param name="tax">Tax rate</param>
+        /// <param name="deliveryPrice">Delivery price</param>
+        /// <returns>Order model in JSON format</returns>
         public string ProduceOrder(string customerId, string customerName, string deliveryAddress,
                                     string contactNumber, float tax, float deliveryPrice)
         {
             UriBuilder builder = new UriBuilder("http://localhost:50000/api/order/ProduceOrder");
-            builder.Query = "clientid=" + ClientId + "&basketid=" + BasketId + "&customertid=" + customerId +
+            builder.Query = "clientid=" + ClientId + "&basketid=" + BasketId + "&customerid=" + customerId +
+                            "&customername=" + customerName +
                             "&deliveryaddress=" + deliveryAddress + "&contactnumber=" + contactNumber +
                             "&tax=" + tax + "&deliveryprice=" + deliveryPrice;
 
